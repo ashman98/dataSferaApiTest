@@ -1,0 +1,10 @@
+#integration_grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 50px 10px;
+}
+
+#integration_grid>div {
+    border: 1px solid black;
+    padding: 30px;
+}
