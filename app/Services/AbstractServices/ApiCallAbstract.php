@@ -105,4 +105,24 @@ abstract class ApiCallAbstract
         }
     }
 
+    /**
+     * @return ApiCallAbstract
+     */
+    public function reset(): ApiCallAbstract
+    {
+        unset($this->token);
+        unset($this->headers);
+        unset($this->endpoint);
+        unset($this->method);
+        unset($this->body);
+        unset($this->result);
+
+        $this->token = '';
+        $this->headers = [];
+        $this->endpoint = '';
+        $this->body = [];
+        $this->result = [];
+        return $this;
+    }
+
 }

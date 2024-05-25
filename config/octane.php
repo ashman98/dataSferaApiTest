@@ -244,6 +244,8 @@ return [
         'task_max_request' => env('SWOOLE_TASK_MAX_REQUEST', 1000),
         'max_coroutine' => 3000,
         'task_timeout' => env('OCTANE_TASK_TIMEOUT', 10),
+        'log_file' => storage_path('logs/swoole_http.log'),
+        'package_max_length' => 10 * 1024 * 1024,
     ],
 
 ];

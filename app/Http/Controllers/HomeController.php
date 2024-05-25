@@ -9,42 +9,31 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $sales = DB::table('sales')
-            ->orderBy('id', 'desc')
-            ->get();
-
-        $orders = DB::table('orders')
-            ->orderBy('id', 'desc')
-            ->get();
-
-        $stocks = DB::table('stocks')
-            ->orderBy('id', 'desc')
-            ->get();
-
-        $incomes = DB::table('incomes')
-            ->orderBy('id', 'desc')
-            ->get();
+        $sales = [];
+        $orders = [];
+        $stocks = [];
+        $incomes = [];
 
         return view('home.index', [
             'sales' => [
-                "count" => count($sales),
+                "count" => DB::table('sales')->count(),
                 "stocksData" => $sales,
                 "fromDate" =>  date('Y-m-d'),
                 "toDate" => date('Y-m-d'),
             ],
             'orders' => [
-                "count" => count($orders),
+                "count" => DB::table('orders')->count(),
                 "stocksData" => $orders,
                 "fromDate" =>  date('Y-m-d'),
                 "toDate" => date('Y-m-d'),
             ],
             'stocks' => [
-                "count" => count($stocks),
+                "count" => DB::table('stocks')->count(),
                 "stocksData" => $stocks,
                 "fromDate" =>  date('Y-m-d'),
             ],
             'incomes' => [
-                "count" => count($incomes),
+                "count" => DB::table('incomes')->count(),
                 "stocksData" => $incomes,
                 "fromDate" =>  date('Y-m-d'),
                 "toDate" => date('Y-m-d'),

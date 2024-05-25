@@ -21,7 +21,7 @@
             <input type="date" id="to_date" name="to_date" value="{{$sales['toDate']}}" required>
 
 
-        </form><button class="submit_b" id="sales">Submit</button>
+        </form><button class="submit_b" id="sales"  @if ($sales['count'] > 0) disabled @endif>Submit</button>
         </div>
         <p>Количество продажи в базе: {{$sales['count']}}</p>
     </div>
@@ -36,7 +36,7 @@
                 <label for="to_date">To Date:</label>
                 <input type="date" id="to_date" name="to_date" value="{{$orders['toDate']}}" required>
 
-            </form><button class="submit_b" id="orders">Submit</button>
+            </form><button class="submit_b" id="orders"  @if ($orders['count'] > 0) disabled @endif>Submit</button>
         </div>
         <p>Количество заказов в базе: {{$orders['count']}}</p>
     </div>
@@ -47,7 +47,7 @@
                 @csrf
                 <label for="from_date">Date from:</label>
                 <input type="date" id="from_date" name="from_date" value="{{$stocks['fromDate']}}" readonly required>
-            </form><button class="submit_b" id="stocks">Submit</button>
+            </form><button class="submit_b" id="stocks" @if ($stocks['count'] > 0) disabled @endif>Submit</button>
         </div>
         <p>Количество складов в базе: {{$stocks['count']}}</p>
     </div>
@@ -64,7 +64,7 @@
                 <input type="date" id="to_date" name="to_date" value="{{$incomes['toDate']}}" required>
 
 
-            </form><button class="submit_b" id="incomes">Submit</button>
+            </form><button class="submit_b" id="incomes" @if ($incomes['count'] > 0) disabled @endif>Submit</button>
         </div>
         <p>Количество доходыов в базе: {{$incomes['count']}}</p>
 

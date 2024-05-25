@@ -7,4 +7,5 @@
 ### Before run
 1. composer install
 2. php artisan migrate
-3. php octane:start
+3. php artisan queue:work
+

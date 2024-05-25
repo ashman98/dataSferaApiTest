@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\CustomApiException;
-use App\Interfaces\DataSferaCallApiInterface;
 use App\Interfaces\Incomes\SaveIncomesDataInterface;
 use App\Interfaces\Orders\SaveOrdersDataInterface;
 use App\Interfaces\Sales\SaveSalesDataInterface;
 use App\Interfaces\Stocks\SaveStocksDataInterface;
+use App\Jobs\IntegrationProcess;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DataIntegrationController extends Controller
 {
@@ -57,7 +58,15 @@ class DataIntegrationController extends Controller
         ];
 
         try {
-            $this->saveSalesDataService->save('api/sales', env('API_DATA_SFERA_TOKEN'),$body);
+            IntegrationProcess::dispatch(
+                'api/sales',
+                env('API_DATA_SFERA_TOKEN'),
+                $body,
+                1,
+                $this->saveSalesDataService
+            )->delay(now()->addSeconds(1));
+            Log::channel('integration')->alert('Batch processing initiated');
+
             return response()->json(['message' => 'Data fetched and saved successfully']);
         } catch (CustomApiException $e) {
             return $e->render();
@@ -78,7 +87,15 @@ class DataIntegrationController extends Controller
         ];
 
         try {
-            $this->saveIncomesDataService->save('api/incomes', env('API_DATA_SFERA_TOKEN'),$body);
+            IntegrationProcess::dispatch(
+                'api/incomes',
+                env('API_DATA_SFERA_TOKEN'),
+                $body,
+                1,
+                $this->saveIncomesDataService
+            )->delay(now()->addSeconds(1));
+            Log::info('Batch processing initiated');
+
             return response()->json(['message' => 'Data fetched and saved successfully']);
         } catch (CustomApiException $e) {
             return $e->render();
@@ -97,9 +114,16 @@ class DataIntegrationController extends Controller
             "dateFrom" => $request->input('from_date'),
             "dateTo" => $request->input('to_date'),
         ];
-
         try {
-            $this->saveStocksDataService->save('api/stocks', env('API_DATA_SFERA_TOKEN'),$body);
+            IntegrationProcess::dispatch(
+                'api/stocks',
+                env('API_DATA_SFERA_TOKEN'),
+                $body,
+                1,
+                $this->saveStocksDataService
+            )->delay(now()->addSeconds(1));
+            Log::info('Batch processing SUCCESS');
+
             return response()->json(['message' => 'Data fetched and saved successfully']);
         } catch (CustomApiException $e) {
             return $e->render();
@@ -108,7 +132,7 @@ class DataIntegrationController extends Controller
         }
     }
 
-    /** Orders Integration
+    /**
      * @param Request $request
      * @return JsonResponse
      */
@@ -118,9 +142,16 @@ class DataIntegrationController extends Controller
             "dateFrom" => $request->input('from_date'),
             "dateTo" => $request->input('to_date'),
         ];
-
         try {
-            $this->saveOrdersDataService->save('api/orders', env('API_DATA_SFERA_TOKEN'),$body);
+            IntegrationProcess::dispatch(
+                'api/orders',
+                env('API_DATA_SFERA_TOKEN'),
+                $body,
+                1,
+                $this->saveOrdersDataService
+            )->delay(now()->addSeconds(1));
+            Log::info('Batch processing initiated');
+
             return response()->json(['message' => 'Data fetched and saved successfully']);
         } catch (CustomApiException $e) {
             return $e->render();

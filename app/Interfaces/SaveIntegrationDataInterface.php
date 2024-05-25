@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Interfaces\Stocks;
+namespace App\Interfaces;
 
 use App\Services\AbstractServices\SaveIntegrationDataAbstract;
 
-interface SaveStocksDataInterface
+interface SaveIntegrationDataInterface
 {
     /**
      * @return void
      */
-    public function save():void;
+    public function save(): void;
 
     /**
      * @param array $dataList
@@ -22,10 +22,8 @@ interface SaveStocksDataInterface
      */
     public function getResultCount(): int;
 
-
     /**
      * @return SaveIntegrationDataAbstract
      */
-
     public function reset(): SaveIntegrationDataAbstract;
 }

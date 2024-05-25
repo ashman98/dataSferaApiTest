@@ -18,6 +18,11 @@ interface DataSferaCallApiInterface
     public function setEndpoint(string $endpoint): ApiCallAbstract;
 
     /**
+     * @return ApiCallAbstract
+     */
+    public function reset():ApiCallAbstract;
+
+    /**
      * @param array $body
      * @return ApiCallAbstract
      */

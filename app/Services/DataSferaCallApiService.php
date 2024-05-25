@@ -7,6 +7,7 @@ use App\Exceptions\CustomApiException;
 use App\Interfaces\DataSferaCallApiInterface;
 use App\Services\AbstractServices\ApiCallAbstract;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class DataSferaCallApiService extends ApiCallAbstract implements DataSferaCallApiInterface
 {
@@ -29,6 +30,7 @@ class DataSferaCallApiService extends ApiCallAbstract implements DataSferaCallAp
         }
         $response = Http::get($this->host.'/'.$this->endpoint, $this->body);
         if (!$response->successful()) {
+            Log::error($response->status());
             throw new CustomApiException($response->status());
         }
         $this->result = $response->json();
