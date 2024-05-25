@@ -94,7 +94,7 @@ class DataIntegrationController extends Controller
                 1,
                 $this->saveIncomesDataService
             )->delay(now()->addSeconds(1));
-            Log::info('Batch processing initiated');
+            Log::channel('integration')->alert('Batch processing initiated');
 
             return response()->json(['message' => 'Data fetched and saved successfully']);
         } catch (CustomApiException $e) {
@@ -122,7 +122,7 @@ class DataIntegrationController extends Controller
                 1,
                 $this->saveStocksDataService
             )->delay(now()->addSeconds(1));
-            Log::info('Batch processing SUCCESS');
+            Log::channel('integration')->alert('Batch processing SUCCESS');
 
             return response()->json(['message' => 'Data fetched and saved successfully']);
         } catch (CustomApiException $e) {
@@ -150,7 +150,7 @@ class DataIntegrationController extends Controller
                 1,
                 $this->saveOrdersDataService
             )->delay(now()->addSeconds(1));
-            Log::info('Batch processing initiated');
+            Log::channel('integration')->alert('Batch processing initiated');
 
             return response()->json(['message' => 'Data fetched and saved successfully']);
         } catch (CustomApiException $e) {
